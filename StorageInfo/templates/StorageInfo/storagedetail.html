@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}资产详细{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="content-header">
+        <h1>
+            资产详细
+            <small>asset info</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li>资产总表</li>
+            <li class="active">资产详细</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><strong class="btn btn-block btn-primary btn-lg">资产:{{ asset.name }}</strong> </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse"><i class="fa fa-minus"></i> </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                        title="Remove"><i class="fa fa-minus"></i> </button>
+            </div>
+        </div>
+
+            <div class="box-body">
+                <h4><b>概览:</b></h4>
+                <table border="1" class="table table-responsive" style="border-left: 3px solid deepskyblue;border-bottom: 1px solid deepskyblue">
+                    <thead>
+                    <tr>
+                        <th>类型</th>
+                        <th>设备名称</th>
+                        <th>SN</th>
+                        <th>品牌</th>
+                        <th>型号</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ asset.storagedevice.get_sub_asset_type_display }}</td>
+                        <td>{{ asset.name }}</td>
+                        <td>{{ asset.sn }}</td>
+                        <td>{{ asset.pinpai }}</td>
+                        <td>{{ asset.model }}</td>
+                        <td>{{ asset.get_status_display }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br />
+                <table border="1" class="table table-responsive" style="border-left: 3px solid deepskyblue;border-bottom: 1px solid deepskyblue">
+                    <thead>
+                    <tr>
+                        <th>机房</th>
+                        <th>机柜</th>
+                        <th>管理地址</th>
+                        <th>VSP地址</th>
+                        <th>NAS地址</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ asset.get_idc_display }}</td>
+                        <td>{{ asset.cabinet }}</td>
+                        <td>{{ asset.mgt_ip }}</td>
+                        <td>{{ asset.storagedevice.vsp_ip }}</td>
+                        <td>{{ asset.storagedevice.nas_ip }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br />
+                <table border="1" class="table table-responsive" style="border-left: 3px solid deepskyblue;border-bottom: 1px solid deepskyblue">
+                    <thead>
+                    <tr>
+                        <th>维保开始时间</th>
+                        <th>维保结束时间</th>
+                        <th>维保厂商</th>
+                        <th>联系方式</th>
+                        <th>固定资产标签</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ asset.purchase_day|date:"Y-m-d" }}</td>
+                        <td>{{ asset.expire_day|date:"Y-m-d" }}</td>
+                        <td>{{ asset.manufacturer }}</td>
+                        <td>{{ asset.manufacturer.telephone }}</td>
+                        <td>{{ asset.tags }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div class="box-footer">
+            <i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;<a href="{% url 'StorageInfo:index' %}">
+            <strong>返回资产列表页</strong></a>
+        </div>
+    </div>
+    </section>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
